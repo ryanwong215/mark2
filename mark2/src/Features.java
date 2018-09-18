@@ -14,6 +14,7 @@ public class Features {
 	static String fpoutput = "C:\\Mark2\\data\\output.csv";
 	
 	static ArrayList<int[]> history;
+	static ArrayList<int[]> matchLast;
 	
     public static void main(String[] args) {
         // Prints "Hello, World" to the terminal window.
@@ -21,19 +22,21 @@ public class Features {
     	history = loadData(filepath);
     	writeData(fpoutput, history);
     	//print_nCr(49, 6, fpdata + "combination.csv");
+    	matchLast(history, 1);
+    	matchLast(history, 2);
+    	matchLast(history, 3);
     	
-    	
-    	int[] a = history.get(0);
-    	int i = 0;
-    	for (int[] b: history) {
+    	//int[] a = history.get(0);
+    	//int i = 0;
+    	//for (int[] b: history) {
     		
-    		if (i != 0) {
-    			match(a, b);
-    			a = b;
-    		}
-    		i++;
+    		//if (i != 0) {
+    			//match(a, b);
+    			//a = b;
+    		//}
+    		//i++;
     			
-    	}
+    	//}
     }
     
     public static ArrayList<int[]> loadData(String fileName) {
@@ -146,9 +149,27 @@ public class Features {
 
 		int[] m = IntStream.of(a).filter(x -> IntStream.of(b).anyMatch(y -> y == x)).toArray();
 		//System.out.println(Arrays.toString(a) + "=" + Arrays.toString(b) + "?" + Arrays.toString(m) + ";" + m.length + "/" + a.length + "=" + (double)((double)m.length / (double)a.length) );
-		System.out.println(Arrays.toString(a) + "?" + Arrays.toString(m) + ";" + m.length + "/" + a.length + "=" + (double)((double)m.length / (double)a.length) );
+		
+		
+		System.out.println(Arrays.toString(a) + "|" + Arrays.toString(m) + "|" + m.length + "/" + a.length + "|" + (double)((double)m.length / (double)a.length) );
 		
 	}
+	
+	public static void matchLast(ArrayList<int[]> list, int n) {
+		System.out.println("skip " + n);
+    	int[] a = list.get(0);
+    	//int i = 0;
+    	for (int i = 0; i< list.size(); i = i + n) {
+    		int[] b = list.get(i);
+    		if (i != 0) {
+    			match(a, b);
+    			a = b;
+    		}
+    		
+    	}
+		
+	}
+	
 }
 
 
